@@ -8,3 +8,4 @@ bin
 .metadata
 .idea
 *~
+/src/main/java/conf/application.conf
