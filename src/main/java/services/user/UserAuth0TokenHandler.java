@@ -28,20 +28,16 @@ public class UserAuth0TokenHandler extends Auth0EmailHandler<User> {
         EntityManager em = emProvider.get();
 
         logger.info("Claims = {}", jwt.getClaims());
-        
-        logger.info("MyClaim = {}", jwt.getClaim("https://zileo.net/my_claim").asString());
-        
-        logger.info("MyClaim = {}", jwt.getClaim("my_claim").asString());
-        
+
         try {
 
             User user = em.createQuery("select u from User u where email = ?1", User.class).setParameter(1, email).getSingleResult();
-            logger.info("Found user {}", user.email);
+            logger.info("Found user {} / {}", user.id, user.email);
             return user;
 
         } catch (NoResultException e) {
 
-            logger.info("Creating user {}", email);
+            logger.info("Creating user {} / {}", userId, email);
             User user = new User();
             user.email = email;
             user.auth0Id = userId;
